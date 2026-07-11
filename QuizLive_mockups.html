@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>QuizLive — макеты интерфейса</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#100E24; --panel:#1D1A3C; --panel2:#262148; --panel3:#302A5C; --stroke:#3A3468; --stroke-soft:#26224A;
+    --buzz:#E8FF5B; --buzz-ink:#1c2200; --violet:#B14EFF;
+    --coral:#FF5D73; --sky:#5B9DFF; --gold:#FFC85B; --teal:#35D0BA;
+    --text:#F6F4FF; --text-dim:#ACA5D6; --text-faint:#6E679E;
+    --font-display:'Baloo 2',sans-serif; --font-body:'Manrope',sans-serif; --font-mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:#0A0918;color:var(--text);font-family:var(--font-body);padding:40px 24px 100px;}
+  .board-head{max-width:1200px;margin:0 auto 44px;}
+  .board-head h1{font-family:var(--font-display);font-size:28px;margin:0 0 8px;}
+  .board-head p{color:var(--text-dim);font-size:14px;max-width:640px;line-height:1.6;margin:0;}
+  .badge{display:inline-block;font-family:var(--font-mono);font-size:11px;color:var(--violet);background:rgba(177,78,255,0.14);border:1px solid rgba(177,78,255,0.4);padding:4px 10px;border-radius:999px;margin-bottom:14px;}
+
+  .board{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:38px;align-items:start;}
+  .frame-wrap{}
+  .frame-label{font-family:var(--font-mono);font-size:12px;color:#6f6a99;margin:0 0 10px;letter-spacing:0.02em;}
+  .frame{background:radial-gradient(circle at 10% -8%, rgba(232,255,91,0.08), transparent 42%), radial-gradient(circle at 100% 0%, rgba(91,157,255,0.12), transparent 46%), var(--ink);border:1px solid var(--stroke-soft);border-radius:18px;padding:22px;min-height:520px;box-shadow:0 30px 60px -30px rgba(0,0,0,0.6);}
+
+  .card{background:linear-gradient(180deg,var(--panel),var(--panel) 60%,var(--panel2));border:1px solid var(--stroke-soft);border-radius:20px;padding:20px;}
+  .muted{color:var(--text-dim);font-size:13px;}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+  .row.between{justify-content:space-between;}
+  .pill{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:999px;background:var(--panel2);border:1px solid var(--stroke);font-size:11px;color:var(--text-dim);font-weight:600;}
+  .pill.on{color:var(--buzz-ink);background:var(--buzz);border-color:var(--buzz);}
+  .field{width:100%;background:var(--panel2);border:1.5px solid var(--stroke);color:var(--text);padding:11px 13px;border-radius:9px;font-size:13px;font-family:var(--font-body);}
+  .btn{display:inline-flex;align-items:center;justify-content:center;border:none;border-radius:999px;padding:10px 18px;font-weight:700;font-size:13px;font-family:var(--font-body);}
+  .btn.primary{background:var(--buzz);color:var(--buzz-ink);}
+  .btn.ghost{background:transparent;border:1.5px solid var(--stroke);color:var(--text);}
+
+  .buzzer{width:150px;height:150px;margin:14px auto;position:relative;display:flex;align-items:center;justify-content:center;}
+  .buzzer .ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,var(--buzz),var(--violet),var(--sky),var(--buzz));padding:2px;-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 2px));}
+  .buzzer .core{position:absolute;inset:9px;border-radius:50%;background:radial-gradient(circle at 35% 28%,#2c265a,#171432 72%);border:1px solid var(--stroke);display:flex;align-items:center;justify-content:center;}
+  .buzzer .code{font-family:var(--font-mono);font-weight:700;font-size:26px;letter-spacing:4px;color:var(--buzz);}
+
+  .chip-grid{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0;}
+  .chip{background:var(--panel2);border:1px solid var(--stroke);padding:5px 12px;border-radius:999px;font-size:12px;font-weight:600;}
+
+  .timer-track{height:8px;background:var(--panel2);border-radius:999px;overflow:hidden;margin:12px 0 16px;border:1px solid var(--stroke);}
+  .timer-fill{height:100%;width:64%;background:linear-gradient(90deg,var(--teal),var(--buzz));}
+
+  .opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .opt-btn{border-radius:14px;padding:16px 14px;font-size:13px;font-weight:700;min-height:56px;display:flex;align-items:center;font-family:var(--font-body);}
+  .opt-btn.c0{background:var(--coral);color:#2a0410;} .opt-btn.c1{background:var(--sky);color:#04122a;}
+  .opt-btn.c2{background:var(--gold);color:#2a1c02;} .opt-btn.c3{background:var(--teal);color:#012a22;}
+  .opt-btn.correct{outline:3px solid #d9ffb8;}
+
+  .board-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;}
+  .board-list li{display:flex;justify-content:space-between;align-items:center;background:var(--panel2);border:1px solid var(--stroke);border-radius:10px;padding:9px 14px;font-size:13px;}
+  .board-list li.top1{border-color:var(--buzz);background:linear-gradient(90deg,rgba(232,255,91,0.14),transparent);}
+  .board-list .rank{color:var(--text-dim);width:20px;font-family:var(--font-mono);font-weight:700;font-size:12px;}
+  .board-list .score{font-family:var(--font-mono);font-weight:700;color:var(--buzz);}
+
+  .q-block{background:var(--panel2);border:1px solid var(--stroke);border-radius:14px;padding:14px;margin-bottom:10px;}
+  .opt-dot{width:10px;height:10px;border-radius:4px;display:inline-block;margin-right:6px;}
+  h2.title{font-family:var(--font-display);font-size:19px;margin:0 0 4px;}
+  h3.title{font-family:var(--font-display);font-size:15px;margin:0 0 8px;}
+</style>
+</head>
+<body>
+
+<div class="board-head">
+  <span class="badge">● макеты интерфейса — интерактивный прототип</span>
+  <h1>QuizLive — экраны продукта</h1>
+  <p>Ключевые экраны организатора и участника, собранные по дизайн-системе продукта (цвета, типографика, компоненты — см. пояснительную записку). Экраны статичны — рабочая интерактивная версия доступна по ссылке на продукт.</p>
+</div>
+
+<div class="board">
+
+  <div class="frame-wrap">
+    <p class="frame-label">01 — Вход / регистрация</p>
+    <div class="frame">
+      <div class="card" style="max-width:280px;margin:60px auto 0;">
+        <div class="row" style="gap:6px;margin-bottom:14px;">
+          <div class="btn primary" style="flex:1;">Вход</div>
+          <div class="btn ghost" style="flex:1;">Регистрация</div>
+        </div>
+        <div class="field" style="margin-bottom:10px;">Логин</div>
+        <div class="field" style="margin-bottom:12px;">••••••••</div>
+        <div class="btn primary" style="width:100%;">Войти</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="frame-wrap">
+    <p class="frame-label">02 — Мои квизы (организатор)</p>
+    <div class="frame">
+      <div class="card row between" style="margin-bottom:14px;">
+        <div>
+          <h2 class="title">Мои квизы</h2>
+          <p class="muted" style="margin:4px 0 0">Хранятся на сервере</p>
+        </div>
+        <div class="btn primary">+ Новый</div>
+      </div>
+      <div class="card row between" style="margin-bottom:10px;">
+        <div><strong style="font-size:13px">История и география</strong><div class="muted">8 вопросов</div></div>
+        <div class="btn ghost">Запустить</div>
+      </div>
+      <div class="card row between">
+        <div><strong style="font-size:13px">IT-квиз для новичков</strong><div class="muted">5 вопросов</div></div>
+        <div class="btn ghost">Запустить</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="frame-wrap">
+    <p class="frame-label">03 — Конструктор квиза</p>
+    <div class="frame">
+      <div class="card">
+        <div class="field" style="margin-bottom:12px;font-weight:700;">Столицы Европы</div>
+        <div class="q-block">
+          <div class="row between" style="margin-bottom:8px;">
+            <span class="pill on">Вопрос 1</span>
+            <span class="pill">20 сек</span>
+          </div>
+          <div class="field" style="margin-bottom:8px;">Столица Франции?</div>
+          <div class="row" style="gap:6px;">
+            <span class="opt-dot" style="background:var(--coral)"></span>
+            <div class="field" style="flex:1;padding:8px 10px;">Париж</div>
+          </div>
+        </div>
+        <div class="btn ghost" style="width:100%;">+ Добавить вопрос</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="frame-wrap">
+    <p class="frame-label">04 — Лобби комнаты</p>
+    <div class="frame">
+      <div class="card" style="text-align:center;">
+        <p class="muted" style="margin:0 0 4px">Код комнаты</p>
+        <div class="buzzer"><span class="ring"></span><span class="core"><span class="code">641073</span></span></div>
+        <h3 class="title">История и география</h3>
+        <div class="chip-grid" style="justify-content:center;">
+          <span class="chip">Марина</span><span class="chip">Игорь</span><span class="chip">Тимур</span>
+        </div>
+        <div class="btn primary" style="width:100%;margin-top:8px;">Начать квиз</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="frame-wrap">
+    <p class="frame-label">05 — Активный вопрос</p>
+    <div class="frame">
+      <div class="card">
+        <div class="row between" style="margin-bottom:10px;">
+          <span class="pill">Вопрос 2 / 8</span>
+          <span class="pill">Ответили: 2 / 3</span>
+        </div>
+        <h2 class="title">Столица Франции?</h2>
+        <div class="timer-track"><div class="timer-fill"></div></div>
+        <div class="opt-grid">
+          <div class="opt-btn c0">Берлин</div>
+          <div class="opt-btn c1">Париж</div>
+          <div class="opt-btn c2">Рим</div>
+          <div class="opt-btn c3">Мадрид</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="frame-wrap">
+    <p class="frame-label">06 — Лидерборд</p>
+    <div class="frame">
+      <div class="card" style="text-align:center;">
+        <h2 class="title">🏆 Итоги квиза</h2>
+        <ol class="board-list" style="margin-top:10px;text-align:left;">
+          <li class="top1"><span><span class="rank">1</span>Марина</span><span class="score">1932</span></li>
+          <li><span><span class="rank">2</span>Тимур</span><span class="score">1410</span></li>
+          <li><span><span class="rank">3</span>Игорь</span><span class="score">980</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
