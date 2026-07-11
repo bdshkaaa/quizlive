@@ -1,0 +1,19 @@
+{
+  "name": "quiz-realtime-app",
+  "version": "2.0.0",
+  "description": "QuizLive — веб-приложение для проведения квизов в реальном времени. Node.js/Express/Socket.IO backend + React frontend, единое standalone-приложение.",
+  "main": "server/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node server/index.js",
+    "build": "npm install --prefix client && npm run build --prefix client"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5",
+    "bcryptjs": "^2.4.3",
+    "nanoid": "^3.3.7",
+    "cors": "^2.8.5"
+  }
+}

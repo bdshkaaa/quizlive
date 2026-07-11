@@ -1,0 +1,28 @@
+[
+  {
+    "id": "pDRyTyOW0f",
+    "ownerId": "PldYvAYfx3",
+    "title": "MoonWalking",
+    "category": "Общее",
+    "createdAt": "2026-07-11T00:16:34.742Z",
+    "questions": [
+      {
+        "id": "HhtlySNC",
+        "type": "text",
+        "text": "В каком году родился Майкл Джексон?",
+        "imageUrl": null,
+        "multiple": false,
+        "options": [
+          "1958",
+          "1968",
+          "1957",
+          "1967"
+        ],
+        "correct": [
+          0
+        ],
+        "timeLimit": 20
+      }
+    ]
+  }
+]
