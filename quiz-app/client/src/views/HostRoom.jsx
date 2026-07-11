@@ -70,6 +70,9 @@ export default function HostRoom({ quiz, onExit }) {
           <p className="muted" style={{ marginBottom: 0 }}>Код комнаты для участников</p>
           <Buzzer code={code} live />
           <h2 style={{ margin: '6px 0 4px' }}>{quiz.title}</h2>
+          <div className="row" style={{ justifyContent: 'center', marginBottom: 4 }}>
+            <span className="pill">{quiz.category || 'Общее'}</span>
+          </div>
           <p className="muted">Ожидаем участников…</p>
           <div className="chip-grid">
             {participants.map(p => <span className="chip" key={p.id}>{p.nickname}</span>)}

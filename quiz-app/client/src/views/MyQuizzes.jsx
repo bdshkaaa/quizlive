@@ -37,7 +37,10 @@ export default function MyQuizzes({ onCreate, onEdit, onLaunch, onHistory }) {
         <div className="card tight row between" key={q.id}>
           <div>
             <strong>{q.title}</strong>
-            <div className="muted" style={{ fontSize: 13, marginTop: 4 }}>{q.questions.length} вопрос(ов)</div>
+            <div className="row" style={{ marginTop: 6, gap: 8 }}>
+              <span className="pill">{q.category || 'Общее'}</span>
+              <span className="muted" style={{ fontSize: 13 }}>{q.questions.length} вопрос(ов)</span>
+            </div>
           </div>
           <div className="row">
             <button className="btn primary" onClick={() => onLaunch(q)}>Запустить</button>

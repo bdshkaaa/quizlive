@@ -9,6 +9,7 @@ function blankQuestion() {
 
 export default function QuizBuilder({ existing, onDone }) {
   const [title, setTitle] = useState(existing?.title || '');
+  const [category, setCategory] = useState(existing?.category || '');
   const [questions, setQuestions] = useState(
     existing?.questions?.length
       ? existing.questions.map(q => ({ ...q, options: [...q.options, '', '', '', ''].slice(0, Math.max(4, q.options.length)) }))
@@ -35,7 +36,7 @@ export default function QuizBuilder({ existing, onDone }) {
     setBusy(true);
     setError('');
     try {
-      const payload = { title: title.trim(), category: 'Общее', questions: cleaned };
+      const payload = { title: title.trim(), category: category.trim() || 'Общее', questions: cleaned };
       if (existing) await Api.updateQuiz(existing.id, payload);
       else await Api.createQuiz(payload);
       onDone();
@@ -51,6 +52,19 @@ export default function QuizBuilder({ existing, onDone }) {
       <div className="card stack">
         <h2>{existing ? 'Изменить квиз' : 'Новый квиз'}</h2>
         <input className="field" type="text" placeholder="Название квиза" value={title} onChange={e => setTitle(e.target.value)} />
+        <input
+          className="field" type="text" placeholder="Категория (например: История, IT, Спорт)"
+          value={category} onChange={e => setCategory(e.target.value)} list="category-suggestions"
+        />
+        <datalist id="category-suggestions">
+          <option value="История" />
+          <option value="Наука" />
+          <option value="IT" />
+          <option value="Спорт" />
+          <option value="Кино и музыка" />
+          <option value="География" />
+          <option value="Общее" />
+        </datalist>
 
         <div className="stack">
           {questions.map((q, i) => (
